@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="gallery">
+    <div class="text-center">
+        <h2>Mini Books</h2>
+        <!-- <p>시작은 무대뽀 </p> -->
+        <a href="{% url 'book_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit">미발행 책리스트</span></a>
+    </div>
+    <div class="container">		
+        {% for book in books %}
+            <div class="col-md-4">
+                <figure class="effect-marley">
+                    {% if book.photo %}
+                        <a href="{% url 'book_detail' pk=book.pk %}"><img src="{{ book.photo.url }}" alt="" class="img-responsive"/></a><!--책 이미지-->
+                    {% endif%}
+                    <figcaption>
+                        <h4>{{ book.title }}</h4> <!--책제목-->
+                        <!--책 발행일-->
+                        <p>{{ book.text|linebreaksbr }}<br>{{ book.published_date }}</p>	<!--책 설명-->			
+                    </figcaption>			
+                </figure>
+            </div>
+        {% endfor %}
+        <!-- 마지막 book 만들기 -->
+        <div class="col-md-4">
+            <figure class="effect-marley">
+                <a href="{% url 'book_new'%}"><img src="{% static 'img/add_book.png' %}" alt="" class="img-responsive"/></a><!--책 이미지-->
+                <figcaption>
+                    <h4>새책 만들기</h4> <!--책제목-->
+                    <!--책 발행일-->
+                    <p>당신의 이야기를 mini Book으로..</p>	<!--책 설명-->			
+                </figcaption>			
+            </figure>
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}
