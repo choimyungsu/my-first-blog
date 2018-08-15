@@ -11,7 +11,9 @@
             <div class="col-md-4">
                 <figure class="effect-marley">
                     {% if book.photo %}
-                        <a href="{% url 'book_detail' pk=book.pk %}"><img src="{{ book.photo.url }}" alt="" class="img-responsive"/></a><!--책 이미지-->
+                        <a href="{% url 'book_detail' pk=book.pk %}"><img src="{{ book.photo.url }}" alt="" class="img-responsive" /></a><!--책 이미지-->
+                    {% else %}
+                        <a href="{% url 'book_detail' pk=book.pk %}"><img src="{% static 'img/default_book.png' %}" alt="" class="img-responsive" style="width:480px;height:265px;"/></a><!--책 이미지-->
                     {% endif%}
                     <figcaption>
                         <h4>{{ book.title }}</h4> <!--책제목-->
@@ -24,7 +26,7 @@
         <!-- 마지막 book 만들기 -->
         <div class="col-md-4">
             <figure class="effect-marley">
-                <a href="{% url 'book_new'%}"><img src="{% static 'img/add_book.png' %}" alt="" class="img-responsive"/></a><!--책 이미지-->
+                <a href="{% url 'book_new'%}"><img src="{% static 'img/add_book.png' %}" alt="" class="img-responsive" style="width:480px;height:265px;"/></a><!--책 이미지-->
                 <figcaption>
                     <h4>새책 만들기</h4> <!--책제목-->
                     <!--책 발행일-->

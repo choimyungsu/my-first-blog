@@ -39,11 +39,11 @@
                     <div class="navbar-collapse collapse">							
                         <div class="menu">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation"><a href="/" class="active">Mini Book</a></li>
+                                <li role="presentation"><a href="/" class="active" >Mini Book</a></li>
                                 <li role="presentation"><a href="about.html">About Us</a></li>
                                 <li role="presentation"><a href="services.html">Services</a></li>
                                 <li role="presentation"><a href="/">Gallery</a></li>
-                                <li role="presentation"><a href="{% url 'book_draft_list' %}">Publish</a></li>
+                                <li role="presentation"><a href="{% url 'book_draft_list' %}" >Publish</a></li>
                                 
                                 {% if user.is_authenticated %}
                                 <li role="presentation"><a href="{% url 'logout' %}"> log out</a></li>    
@@ -62,6 +62,7 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>	
         <script src="{% static 'js/vendor/wow.min.js' %}"></script>
+        <script src="{% static 'js/cms.js' %}"></script>
         <script>
         wow = new WOW(
             {
