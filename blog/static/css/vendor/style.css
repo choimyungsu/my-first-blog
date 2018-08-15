@@ -4,7 +4,9 @@
 /* ==== overwrite bootstrap standard ==== */
 @import url('animate.css');
 
-
+* {
+  box-sizing: border-box;
+}
 
 body {
 	font-family:'Open Sans', Arial, sans-serif;
@@ -13,7 +15,8 @@ body {
 	line-height:1.6em;
 	color:#fff;
 	background-color:#fff;
-	overflow-x:hidden;
+  overflow-x:hidden;
+  border:1px solid black;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -757,6 +760,18 @@ ul.social_icons li  a i{
 }
 
 /*---------------*/
+/***** leftmenu *****/
+/*cms add 2018.08*/
+/*---------------*/
+#leftmenuinner {
+  height:85%;
+  /*width:100%;*/
+  overflow-y:auto !important;
+  overflow-x:hidden;
+  /*padding-top:20px;*/
+}
+
+/*---------------*/
 /***** Marley *****/
 /*---------------*/
 
@@ -927,12 +942,15 @@ textarea#message{
   Footer
 ============================ */
 footer {
-	padding:50px;
 	background:#65AAF0;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:70px;
 }
 
 footer p {
-	color:#fff;
+	color:#272727;
 }
 
 footer h4 {

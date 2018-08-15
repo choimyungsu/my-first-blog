@@ -1,9 +1,52 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <h1>New comment</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Send</button>
-    </form>
+<div class="container">
+        <div class="content row">
+            <div class="col-sm-3" id="leftmenuinner" >
+                <h3 style="text-align: center;margin-top:0;">Contents</h5>
+                <div class="row">
+                    <div style="padding-left:20px; ">                    
+                        {% for post2 in book.posts.all %}
+                            {% if user.is_authenticated or book.approved_post %}
+                            <div class="row" {% if post2.pk == post.pk %} style="border:1px solid blue; " {% endif %}>
+                                <div class="sidebar">
+                                    <a href="{% url 'post_view' pk=post2.pk %}">{{ post2.title}}</a>   
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% empty %}
+                            <p>No Contents here yet </p>
+                        {% endfor %}
+                        <a class="btn btn-default " href="{% url 'add_post_to_book' pk=book.pk %}">Add Contents</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9" style="margin-top: 0px;">
+
+                <p>{{ post.text|linebreaksbr }}</p>
+                <hr>
+                <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+                
+                {% for comment in post.comments.all %}
+                    {% if user.is_authenticated or comment.approved_comment %}
+                        <h5>{{ comment.text }} by {{ comment.author }} at {{ comment.created_date }}
+                        {% if not comment.approved_comment %}
+                            <a href="{% url 'comment_remove' pk=comment.pk %}">삭제</a>
+                            <a href="{% url 'comment_approve' pk=comment.pk %}">승인</a>
+                        {% endif %}
+                        </h5> 
+                    {% endif %}
+                {% empty %}
+                    <p>No comments here yet</p>
+                {% endfor %} 
+                <form method="POST" class="post-form">{% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="save btn btn-default">Send</button>
+                </form>
+                         
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
