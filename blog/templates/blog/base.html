@@ -40,11 +40,10 @@
                         <div class="menu">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation"><a href="/" class="active" >Mini Book</a></li>
-                                <li role="presentation"><a href="about.html">About Us</a></li>
+                                <!--<li role="presentation"><a href="about.html">About Us</a></li>
                                 <li role="presentation"><a href="services.html">Services</a></li>
-                                <li role="presentation"><a href="/">Gallery</a></li>
+                                <li role="presentation"><a href="/">Gallery</a></li>-->
                                 <li role="presentation"><a href="{% url 'book_draft_list' %}" >Publish</a></li>
-                                
                                 {% if user.is_authenticated %}
                                 <li role="presentation"><a href="{% url 'logout' %}"> log out</a></li>    
                                 {% endif %}					

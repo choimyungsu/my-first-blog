@@ -1,9 +1,11 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <h1>New Book</h1>
+<div class="container">
+    <h1>Book 수정</h1>
     <form method="POST" class="post-form" enctype="multipart/form-data" >{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
+</div>    
 {% endblock %}
