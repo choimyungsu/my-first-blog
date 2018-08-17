@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'markdownx', # 마크다운 편집관련 추가 cms 2018.08.16
     'django_summernote',# 서머노트 편집관련 추가 cms 2018.08.16
 ]
 
