@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'markdownx', # 마크다운 편집관련 추가 cms 2018.08.16
+    'django_summernote',# 서머노트 편집관련 추가 cms 2018.08.16
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,6 @@ LOGIN_REDIRECT_URL = '/'
 # 사진이나 미디어 파일 올리는 경로 설정 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL= '/media/'
+
+# 일단 공백 설정 2018.08.16
+SUMMERNOTE_CONFIG = {}

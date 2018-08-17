@@ -30,9 +30,10 @@
                     <a class="pull-right" href="{% url 'post_edit' pk=post.pk %}" >편집 &nbsp;</a>
                 {% endif %}
             </div>
-            <p>{{ post.text|linebreaksbr }}</p>
+            <p>{{ post.text|safe }}</p>
             <h5>마지막 편집일 : {{post.updated_date}}</h5>
             <hr>
+          
             <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
             
             {% for comment in post.comments.all %}

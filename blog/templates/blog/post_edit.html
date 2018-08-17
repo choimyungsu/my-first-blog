@@ -17,21 +17,25 @@
                             {% endif %}
                             {% empty %}
                             <p>No Contents here yet </p>
-                        {% endfor %}
-                        
+                        {% endfor %}    
                     </div>
                 </div>
             </div>
             <div class="col-sm-9" style="margin-top: 0px;">
-                <form method="POST" class="post-form">{% csrf_token %}
+                <form method="POST" class="post-form" >{% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="save btn btn-default">Save</button>
-                </form>
+                </form> 
             </div>
         </div>
     </div>
 </div>
+<Script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+          });
 
+</Script>
 
 
 

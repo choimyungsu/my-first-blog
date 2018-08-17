@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^accounts/login/$', views.login, name='login'),
     url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
     url(r'', include('blog.urls')),
+    url(r'^summernote/', include('django_summernote.urls')), # 마크다운 편집관련 추가 cms 2018.08.17
 ]

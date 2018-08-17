@@ -24,7 +24,7 @@ class Book(models.Model):
         return self.title
 
 
-class Post(models.Model):
+class Post(models.Model ): # cms 2018.08.17 models.Model -> summer_model.Attachment
     #author = models.ForeignKey('auth.User', on_delete=models.CASCADE) # book에 종속되므로 주석처리 
     book = models.ForeignKey('blog.Book', related_name='posts') # Post 링크 연결 추가
     title = models.CharField(max_length=200)
