@@ -6,6 +6,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^$', views.book_list, name='book_list'), # book list 가 보이도록 변경
+    url(r'^mybook/$', views.my_book_list, name='my_book_list'), # My_book list 가 보이도록 추가
     url(r'^book/new/$', views.book_new, name='book_new'), # 새책 생성 
     url(r'^book/(?P<pk>\d+)/$', views.book_detail, name='book_detail'),# book 한건 보이도록
     url(r'^(?P<pk>\d+)/$', views.post_view, name='post_view'),# Post 한건은 오른쪽에 Post리스트는 왼쪽에 

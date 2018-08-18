@@ -13,12 +13,12 @@
                     {% if book.photo %}
                         <a href="{% url 'book_detail' pk=book.pk %}"><img src="{{ book.photo.url }}" alt="" class="img-responsive" style="width:480px;height:260px;" /></a><!--책 이미지-->
                     {% else %}
-                        <a href="{% url 'book_detail' pk=book.pk %}"><img src="{% static 'img/default_book.png' %}" alt="" class="img-responsive" style="width:480px;height:265px;"/></a><!--책 이미지-->
+                        <a href="{% url 'book_detail' pk=book.pk %}"><img src="{% static 'img/default_book.png' %}" alt="" class="img-responsive" style="width:480px;height:260px;"/></a><!--책 이미지-->
                     {% endif%}
                     <figcaption>
                         <h4>{{ book.title }}</h4> <!--책제목-->
                         <!--책 발행일-->
-                        <p>{{ book.text|linebreaksbr }}<br>{{ book.published_date }}</p>	<!--책 설명-->			
+                        <p>{{ book.text|linebreaksbr }}<br>{{ book.published_date }}<br>저자:{{ book.author }}</p>	<!--책 설명-->			
                     </figcaption>			
                 </figure>
             </div>
@@ -26,13 +26,32 @@
         <!-- 마지막 book 만들기 -->
         <div class="col-md-4">
             <figure class="effect-marley">
-                <a href="{% url 'book_new'%}"><img src="{% static 'img/add_book.png' %}" alt="" class="img-responsive" style="width:480px;height:265px;"/></a><!--책 이미지-->
+                <a href="{% url 'book_new'%}"><img src="{% static 'img/add_book.png' %}" alt="" class="img-responsive" style="width:480px;height:260px;"/></a><!--책 이미지-->
                 <figcaption>
                     <h4>새책 만들기</h4> <!--책제목-->
                     <!--책 발행일-->
                     <p>당신의 이야기를 mini Book으로..</p>	<!--책 설명-->			
                 </figcaption>			
             </figure>
+        </div>
+        <div class="row">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if books.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ books.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ books.number }} of {{ books.paginator.num_pages }}.
+                    </span>
+            
+                    {% if books.has_next %}
+                        <a href="?page={{ books.next_page_number }}">next</a>
+                        <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
         
     </div>

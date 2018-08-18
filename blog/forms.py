@@ -10,6 +10,7 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ('title', 'text', 'photo')
+        #fields ='__all__' # 모든 필드를 보여줄때 
 
 class PostForm(forms.ModelForm):
 

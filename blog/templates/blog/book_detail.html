@@ -18,7 +18,7 @@
                 {% empty %}
                 <p>No Contents here yet </p>
             {% endfor %}
-            {% if user.is_authenticated %}<a class="btn btn-default" href="{% url 'add_post_to_book' pk=book.pk %}">Add Contents</a>{% endif %}
+            {% if user.is_authenticated and book.author == user %}<a class="btn btn-default" href="{% url 'add_post_to_book' pk=book.pk %}">Add Contents</a>{% endif %}
             </div>
             <div class="page  col-sm-9" id="load_content" >
             {# 특정 컨텐츠만 나옴/ if post 값이 없으면 책 내용이 나오기 #}
@@ -35,7 +35,7 @@
                     {% if book.photo %}
                         <img src="{{ book.photo.url }}" alt="" class="img-responsive"/>
                     {% endif %}
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and book.author == user %}
                         <a class="btn btn-default" href="{% url 'book_edit' pk=book.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="btn btn-default" href="{% url 'book_remove' pk=book.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
                     {% endif %}

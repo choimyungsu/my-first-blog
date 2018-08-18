@@ -18,14 +18,14 @@
                         {% empty %}
                         <p>No Contents here yet </p>
                     {% endfor %}
-                    {% if user.is_authenticated %}<h3 style="text-align: center;margin-top:0;"><a class="btn btn-default " href="{% url 'add_post_to_book' pk=book.pk %}" >Add Contents</a></h3>{% endif %}
+                    {% if user.is_authenticated and book.author == user %}<h3 style="text-align: center;margin-top:0;"><a class="btn btn-default " href="{% url 'add_post_to_book' pk=book.pk %}" >Add Contents</a></h3>{% endif %}
                 </div>
             </div>
         </div>
         <div class="col-sm-9" style="margin-top: 0px;">
             <div class="row">
                 <a class="pull-left js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated and book.author == user %}
                     <a class="pull-right" href="{% url 'post_remove' pk=post.pk %}" >삭제</a>
                     <a class="pull-right" href="{% url 'post_edit' pk=post.pk %}" >편집 &nbsp;</a>
                     {% if post.published_date %}
@@ -37,15 +37,18 @@
                     {% endif %}
                 {% endif %}
             </div>
-            <p>{{ post.text|safe }}</p>
-            <h5>마지막 편집일 : {{post.updated_date}}</h5>
             <hr>
-          
+            <div class="row">
+                <p>{{ post.text|safe }}</p>
+                <p class="date pull-right">마지막 편집일 : {{post.updated_date}}</p>
+            </div>
+            <hr>
             <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
             
             {% for comment in post.comments.all %}
                 {% if user.is_authenticated or comment.approved_comment %}
                     <h5>{{ comment.text }} by {{ comment.author }} at {{ comment.created_date }}
+                        
                     {% if not comment.approved_comment %}
                         <a href="{% url 'comment_remove' pk=comment.pk %}">삭제</a>
                         <a href="{% url 'comment_approve' pk=comment.pk %}">승인</a>

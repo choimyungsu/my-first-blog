@@ -1,5 +1,8 @@
 # java의 controller 같은 역할
 from django.shortcuts import render, get_object_or_404,redirect
+# 페이징 처리 2018.08.19
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import render
 from django.utils import timezone
 from .models import Post, Comment, Book # 모델 임포트
 from .forms import PostForm, CommentForm, BookForm # form 임포트 추가
@@ -8,7 +11,25 @@ from django.contrib.auth.decorators import login_required
 
 def book_list(request): # 책리스트 가져오기
     books = Book.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    # 페이징 처리 추가 2018.08.19
+    paginator = Paginator(books, 8) # Show 9 contacts per page
+    page = request.GET.get('page')
+    try:
+        #books = paginator.get_page(page)
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)       
+  
+    return render(request, 'blog/book_list.html', {'books': queryset})
+
+@login_required
+def my_book_list(request): # 내 책리스트 가져오기 2018.08.18
+    books = Book.objects.filter(author= request.user).order_by('created_date')
     return render(request, 'blog/book_list.html', {'books': books})
+
+
 @login_required
 def book_new(request):
     # request.POST, request.FILES
@@ -43,7 +64,7 @@ def book_edit(request, pk):
     return render(request, 'blog/book_edit.html', {'form': form}) 
 @login_required
 def book_draft_list(request):# 
-    books = Book.objects.filter(published_date__isnull=True).order_by('created_date')
+    books = Book.objects.filter(published_date__isnull=True,author= request.user).order_by('created_date') # 저자책만 가져오기
     return render(request, 'blog/book_draft_list.html', {'books': books}) # 'books'라는 변수이름으로 books를 넘김.
 @login_required
 def book_publish(request, pk):
@@ -160,3 +181,9 @@ def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return redirect('post_view', pk=comment.post.pk)    
+
+
+
+
+
+     
