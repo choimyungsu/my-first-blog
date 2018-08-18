@@ -17,7 +17,7 @@ def book_new(request):
         if form.is_valid():
             book = form.save(commit=False)
             book.author = request.user
-            #post.published_date = timezone.now()
+            #post.published_date = timezone.now() # 북 발행은 별도로 수행
             book.save()
             #return redirect('book_detail', pk=book.pk) # book 상세
             return redirect('book_list')  # book list
@@ -35,7 +35,7 @@ def book_edit(request, pk):
         if form.is_valid():
             book = form.save(commit=False)
             book.author = request.user
-            #post.published_date = timezone.now()
+            #post.published_date = timezone.now() # 포스트 발행은 별도로 수행
             book.save()
             return redirect('book_detail', pk=book.pk)
     else:
@@ -69,7 +69,7 @@ def add_post_to_book(request, pk):
         form = PostForm()
     return render(request, 'blog/add_post_to_book.html', {'form': form,'book':book})
 
-@login_required
+
 def post_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
     book = Book.objects.get(id=post.book_id)

@@ -8,7 +8,7 @@
             <div class="row">
                 <div style="padding-left:20px; ">                    
                     {% for post2 in book.posts.all %}
-                        {% if user.is_authenticated or book.approved_post %}
+                        {% if user.is_authenticated or post2.published_date %}
                         <div class="row" {% if post2.pk == post.pk %} style="background-color:#65AAF0; " {% endif %}>
                             <div class="sidebar">
                                 <a href="{% url 'post_view' pk=post2.pk %}">{{ post2.title}}</a>   
@@ -18,7 +18,7 @@
                         {% empty %}
                         <p>No Contents here yet </p>
                     {% endfor %}
-                    <h3 style="text-align: center;margin-top:0;"><a class="btn btn-default " href="{% url 'add_post_to_book' pk=book.pk %}" >Add Contents</a></h3>
+                    {% if user.is_authenticated %}<h3 style="text-align: center;margin-top:0;"><a class="btn btn-default " href="{% url 'add_post_to_book' pk=book.pk %}" >Add Contents</a></h3>{% endif %}
                 </div>
             </div>
         </div>
@@ -28,6 +28,13 @@
                 {% if user.is_authenticated %}
                     <a class="pull-right" href="{% url 'post_remove' pk=post.pk %}" >삭제</a>
                     <a class="pull-right" href="{% url 'post_edit' pk=post.pk %}" >편집 &nbsp;</a>
+                    {% if post.published_date %}
+                    <div class="date pull-right">
+                        <!-- <p>{{ post.published_date }}</p> -->
+                    </div>
+                    {% else %}
+                        <a class="pull-right" href="{% url 'post_publish' pk=post.pk %}">Publish&nbsp;</a>
+                    {% endif %}
                 {% endif %}
             </div>
             <p>{{ post.text|safe }}</p>
