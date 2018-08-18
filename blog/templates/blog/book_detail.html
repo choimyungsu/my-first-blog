@@ -4,15 +4,15 @@
 
     <div class="container">
         <div class="content row" style="margin-top:0;">
-            <div class="col-sm-3" style="overflow-y:auto;">
-            <h3 style="text-align: center;margin-top:0;">Contents</h5>
+            <div class="col-sm-3" id="leftmenuinner" style="overflow-y:auto; border-right:1px solid #BDBDBD">
+            <h3 style="text-align:left; margin-top:0;display: inline-block;">Contents</h3>
+            <a class="pull-light js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>                
             {% for post in book.posts.all %}
                 {% if user.is_authenticated or book.approved_post %}
                 <div class="row">
                     <div class="sidebar" >
                         <a href="{% url 'post_view' pk=post.pk %}">{{ post.title}}</a>   
                     </div>
-
                 </div>
                 {% endif %}
                 {% empty %}
@@ -22,6 +22,7 @@
             </div>
             <div class="page  col-sm-9" id="load_content" >
             {# 특정 컨텐츠만 나옴/ if post 값이 없으면 책 내용이 나오기 #}
+                <a class="pull-left js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
                 <div class="post">
                     <h4>{{ book.title }}</h4>
                     {% if book.published_date %}

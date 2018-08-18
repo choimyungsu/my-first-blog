@@ -17,7 +17,7 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'text')
         widgets = {
-			'title' : forms.TextInput(attrs={'class': 'form-control','width':'200'}),
+			'title' : forms.TextInput(attrs={'class': 'form-control','width':'100'}),
             #'text' : forms.Textarea(attrs={'class': 'form-control', 'rows':15}),
             'text': SummernoteWidget,
 		}
