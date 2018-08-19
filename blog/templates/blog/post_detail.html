@@ -38,9 +38,9 @@
                 {% endif %}
             </div>
             <hr>
-            <div class="row">
-                <div class="img-responsive" >{{ post.url | safe }}</div> 
-                <p style="padding-left: 10px;">{{ post.text|safe }}</p>
+            <div class="row" style="padding-left: 10px;">
+                <div>{{ post.url | safe }}</div> 
+                <p>{{ post.text|safe }}</p>
                 <p class="date pull-right">마지막 편집일 : {{post.updated_date}}</p>
             </div>
             <hr>
@@ -61,10 +61,10 @@
             {% endfor %} 
 
             <div style="" class="prev_next_indicator"><!-- 앞뒤 이동-->
-                    <a class="prev_icon" href="#" role="button">
+                    <a class="prev_icon" href="#" role="button" >
                         <span class="glyphicon glyphicon-chevron-left" style="font-size:2em;"></span>
                     </a>       
-                    <a class="next_icon" href="#" role="button">
+                    <a class="next_icon" href="#" role="button" >
                         <span class="glyphicon glyphicon-chevron-right" style="font-size:2em;"></span>
                     </a>                
             </div>
