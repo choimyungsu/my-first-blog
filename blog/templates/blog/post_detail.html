@@ -1,15 +1,19 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+
 <div class="container">
-    <div class="content row">
+    <div class="content row" style="margin-top:0;">
         <div class="col-sm-3" id="leftmenuinner" style="overflow-y:auto; border-right:1px solid #BDBDBD">
-            <h3 style="text-align:left; margin-top:0;display: inline-block;">Contents</h3><a class="pull-light js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
+            <h3 style="text-align:left; margin-top:0;display: inline-block;">
+                    <a href="{% url 'book_detail' pk=book.pk %}">Contents</a>
+            </h3>
+            <a class="js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
             <div class="row">
                 <div style="padding-left:20px; ">                    
                     {% for post2 in book.posts.all %}
                         {% if user.is_authenticated or post2.published_date %}
-                        <div class="row" {% if post2.pk == post.pk %} style="background-color:#65AAF0; " {% endif %}>
+                        <div class="row" {% if post2.pk == post.pk %} style="background-color:#E0ECF8;" {% endif %}>
                             <div class="sidebar">
                                 <a href="{% url 'post_view' pk=post2.pk %}">{{ post2.title}}</a>   
                             </div>
@@ -23,24 +27,22 @@
             </div>
         </div>
         <div class="col-sm-9" style="margin-top: 0px;">
-            <div class="row">
-                <a class="pull-left js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
-                {% if user.is_authenticated and book.author == user %}
-                    <a class="pull-right" href="{% url 'post_remove' pk=post.pk %}" >삭제</a>
-                    <a class="pull-right" href="{% url 'post_edit' pk=post.pk %}" >편집 &nbsp;</a>
-                    {% if post.published_date %}
-                    <div class="date pull-right">
-                        <!-- <p>{{ post.published_date }}</p> -->
-                    </div>
-                    {% else %}
-                        <a class="pull-right" href="{% url 'post_publish' pk=post.pk %}">Publish&nbsp;</a>
-                    {% endif %}
+            <a class="pull-left js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
+            {% if user.is_authenticated and book.author == user %}
+                <a class="pull-right" href="{% url 'post_remove' pk=post.pk %}" ><span class="glyphicon glyphicon-remove"></span>삭제</a>
+                <a class="pull-right" href="{% url 'post_edit' pk=post.pk %}" ><span class="glyphicon glyphicon-pencil"></span>편집 &nbsp;&nbsp;</a>
+                {% if post.published_date %}
+                <div class="date pull-right">
+                    <!-- <p>{{ post.published_date }}</p> -->
+                </div>
+                {% else %}
+                    <a class="pull-right" href="{% url 'post_publish' pk=post.pk %}"><span class="glyphicon glyphicon-saved"></span>Publish&nbsp;&nbsp;</a>
                 {% endif %}
-            </div>
+            {% endif %}
             <hr>
             <div class="row" style="padding-left: 10px;">
-                <div>{{ post.url | safe }}</div> 
-                <p>{{ post.text|safe }}</p>
+                    {% if post.url %} <div>{{ post.url | safe }}</div> {% endif%}
+                {{ post.text|safe }}
                 <p class="date pull-right">마지막 편집일 : {{post.updated_date}}</p>
             </div>
             <hr>

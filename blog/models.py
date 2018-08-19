@@ -43,6 +43,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
     photo = models.ImageField(blank=True, null=True)#만약 도중에 모델이 변경되면 기존값에 대해선 널추가가 됨..
+    url = models.CharField(max_length=500, blank=True, null=True) # 이미지 URL 연결 필드 2018.08.19
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(

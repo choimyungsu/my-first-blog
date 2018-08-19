@@ -10,8 +10,14 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ('title', 'text', 'photo')
+        fields = ('title', 'text', 'photo','url')
         #fields ='__all__' # 모든 필드를 보여줄때 
+        widgets = {
+			'title' : forms.TextInput(attrs={'class': 'form-control','width':'50','placeholder': '목차 제목을 입력해주세요.'}),
+            'url' : forms.TextInput(attrs={'class': 'form-control','width':'50','placeholder': '대표 이미지 URL을 입력해주세요.','alt':'class="img-responsive"'}),
+            #'text' : forms.Textarea(attrs={'class': 'form-control', 'rows':15}),
+            'text': SummernoteWidget,
+		}
 
 class PostForm(forms.ModelForm):
 

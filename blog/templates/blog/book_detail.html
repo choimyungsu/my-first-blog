@@ -36,10 +36,11 @@
                         <img src="{{ book.photo.url }}" alt="" class="img-responsive"/>
                     {% endif %}
                     {% if user.is_authenticated and book.author == user %}
-                        <a class="btn btn-default" href="{% url 'book_edit' pk=book.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="btn btn-default" href="{% url 'book_remove' pk=book.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                        <a href="{% url 'book_edit' pk=book.pk %}"><span class="glyphicon glyphicon-pencil"></span>편집</a>&nbsp;&nbsp;
+                        <a href="{% url 'book_remove' pk=book.pk %}"><span class="glyphicon glyphicon-remove"></span>삭제</a> <-- 주의: Contents도 모두 삭제됩니다!!
+                        
                     {% endif %}
-                    <p>{{ book.text|linebreaksbr }}</p>
+                    <p>{{ book.text|safe }}</p>
                 </div>
             </div>
         </div>

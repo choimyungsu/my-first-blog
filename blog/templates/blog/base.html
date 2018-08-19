@@ -5,15 +5,16 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CMS minibook(myBook)</title>
-        {# <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> #}
-        {# <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> #}
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext">
         <!-- day css 적용-->
-        <link rel="stylesheet" href="{% static 'css/vendor/bootstrap.min.css' %}">
+        {% comment %} <link rel="stylesheet" href="{% static 'css/vendor/bootstrap.min.css' %}"> {% endcomment %}
         <link rel="stylesheet" href="{% static 'css/vendor/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/vendor/animate.css' %}">
         <link rel="stylesheet" href="{% static 'css/vendor/animate.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/vendor/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/cms.css' %}">
+        {% comment %} <link rel="stylesheet" href="{% static 'css/vendor/style.css' %}"> {% endcomment %}
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,7 +25,7 @@
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-default navbar-static-top" role="banner">
+            <nav class="navbar navbar-default navbar-static-top" role="banner" >
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -33,28 +34,25 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <div class="navbar-brand">
-                            <a href="/"><h1> CMS </h1></a>
-                        </div>
-                    </div>				
+                        <a class="navbar-brand" href="/">CMS</a>
+                    </div>
+
                     <div class="navbar-collapse collapse">							
-                        <div class="menu">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation"><a href="/" >Books</a></li>
-                                <!-- class="active" 구현하기 (어는 메뉴로 들어왔나?)                             
-                                <li role="presentation"><a href="about.html">About Us</a></li>
-                                <li role="presentation"><a href="services.html">Services</a></li>
-                                <li role="presentation"><a href="/">Gallery</a></li>-->
-                                <li role="presentation"><a href="{% url 'search' %}" >Search</a></li>
-                                {% if user.is_authenticated %}
-                                <li role="presentation"><a href="{% url 'my_book_list' %}" >My Book</a></li>
-                                <li role="presentation"><a href="{% url 'book_draft_list' %}" >Publish</a></li>
-                                <li role="presentation"><a href="{% url 'logout' %}"> log out</a></li>  
-                                {% else %}
-                                <li role="presentation"><a href="{% url 'login' %}"> log in</a></li>    
-                                {% endif %}					
-                            </ul>
-                        </div>
+                        <ul class="nav navbar-nav navbar-right" role="tablist">
+                            <li><a href="/" >Books</a></li>
+                            <!-- class="active" 구현하기 (어는 메뉴로 들어왔나?)                             
+                            <li role="presentation"><a href="about.html">About Us</a></li>
+                            <li role="presentation"><a href="services.html">Services</a></li>
+                            <li role="presentation"><a href="/">Gallery</a></li>-->
+                            <li role="presentation"><a href="{% url 'search' %}" >Search</a></li>
+                            {% if user.is_authenticated %}
+                            <li role="presentation"><a href="{% url 'my_book_list' %}" >My Book</a></li>
+                            <li role="presentation"><a href="{% url 'book_draft_list' %}" >Publish</a></li>
+                            <li role="presentation"><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> log out</a></li>  
+                            {% else %}
+                            <li role="presentation"><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> log in</a></li>    
+                            {% endif %}					
+                        </ul>
                     </div>		
                 </div><!--/.container-->
             </nav><!--/nav-->		
@@ -74,6 +72,9 @@
         
             }	) 
             .init();
-        </script>	
+        </script>
+        <div id="footer">
+            <p>Copyright © CMS 2018   &nbsp;  cms2580@naver.com </p>
+        </div> 
     </body>
 </html>

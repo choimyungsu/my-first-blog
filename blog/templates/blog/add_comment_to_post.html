@@ -4,12 +4,12 @@
 <div class="container">
         <div class="content row">
             <div class="col-sm-3" id="leftmenuinner" >
-                <h3 style="text-align: center;margin-top:0;">Contents</h5>
+                <h4 style="margin-top:0; display:inline-block;">목차(Contents)</h4>
                 <div class="row">
                     <div style="padding-left:20px; ">                    
                         {% for post2 in book.posts.all %}
                             {% if user.is_authenticated or book.approved_post %}
-                            <div class="row" {% if post2.pk == post.pk %} style="border:1px solid blue; " {% endif %}>
+                            <div class="row" {% if post2.pk == post.pk %} style="background-color:#E0ECF8; "  {% endif %}>
                                 <div class="sidebar">
                                     <a href="{% url 'post_view' pk=post2.pk %}">{{ post2.title}}</a>   
                                 </div>
@@ -24,14 +24,14 @@
             </div>
             <div class="col-sm-9" style="margin-top: 0px;">
 
-                <p>{{ post.text|linebreaksbr }}</p>
+                <p>{{ post.text|safe }}</p>
                 <hr>
                 <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
                 
                 {% for comment in post.comments.all %}
                     {% if user.is_authenticated or comment.approved_comment %}
                         <h5>{{ comment.text }} by {{ comment.author }} at {{ comment.created_date }}
-                        {% if not comment.approved_comment %}
+                        {% if not comment.approved_comment and user == post.author %}
                             <a href="{% url 'comment_remove' pk=comment.pk %}">삭제</a>
                             <a href="{% url 'comment_approve' pk=comment.pk %}">승인</a>
                         {% endif %}
