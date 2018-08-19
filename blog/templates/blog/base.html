@@ -45,6 +45,7 @@
                                 <li role="presentation"><a href="about.html">About Us</a></li>
                                 <li role="presentation"><a href="services.html">Services</a></li>
                                 <li role="presentation"><a href="/">Gallery</a></li>-->
+                                <li role="presentation"><a href="{% url 'search' %}" >Search</a></li>
                                 {% if user.is_authenticated %}
                                 <li role="presentation"><a href="{% url 'my_book_list' %}" >My Book</a></li>
                                 <li role="presentation"><a href="{% url 'book_draft_list' %}" >Publish</a></li>

@@ -3,12 +3,13 @@
 {% block content %}
 <div class="container">
     <div class="content row">
-        <div class="col-sm-3">
+        <div class="col-sm-3" id="leftmenuinner" style="overflow-y:auto; border-right:1px solid #BDBDBD">
+            <h3 style="text-align:left; margin-top:0;display: inline-block;">Contents</h3><a class="pull-light js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
             <div class="row">
-                <div class="sidebar" style="border:1px solid black; overflow-y:auto !impotant;padding:30px">                    
+                <div style="padding-left:20px; ">                    
                     {% for post2 in book.posts.all %}
-                        {% if user.is_authenticated or book.approved_post %}
-                        <div class="row" {% if post2.pk == post.pk %}style="border:1px solid blue;" {% endif %}>
+                        {% if user.is_authenticated or post2.published_date %}
+                        <div class="row" {% if post2.pk == post.pk %} style="background-color:#65AAF0; " {% endif %}>
                             <div class="sidebar">
                                 <a href="{% url 'post_view' pk=post2.pk %}">{{ post2.title}}</a>   
                             </div>
@@ -17,7 +18,7 @@
                         {% empty %}
                         <p>No Contents here yet </p>
                     {% endfor %}
-                    <a class="btn btn-default" href="{% url 'add_post_to_book' pk=book.pk %}">Add Contents</a>
+                    {% if user.is_authenticated and book.author == user %}<h3 style="text-align: center;margin-top:0;"><a class="btn btn-default " href="{% url 'add_post_to_book' pk=book.pk %}" >Add Contents</a></h3>{% endif %}
                 </div>
             </div>
         </div>

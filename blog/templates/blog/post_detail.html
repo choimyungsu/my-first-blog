@@ -39,7 +39,8 @@
             </div>
             <hr>
             <div class="row">
-                <p>{{ post.text|safe }}</p>
+                <div class="img-responsive" >{{ post.url | safe }}</div> 
+                <p style="padding-left: 10px;">{{ post.text|safe }}</p>
                 <p class="date pull-right">마지막 편집일 : {{post.updated_date}}</p>
             </div>
             <hr>

@@ -4,6 +4,39 @@ from django import forms
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
+from django.db.models import Q
+
+# Book 모델 검색
+class BookManager(models.Manager):
+    def search(self, query=None):
+        qs = self.get_queryset()
+        if query is not None:
+            or_lookup = (Q(title__icontains=query) | 
+                         Q(text__icontains=query)
+                        )
+            qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
+        return qs
+
+# Post 모델 검색
+class PostManager(models.Manager):
+    def search(self, query=None):
+        qs = self.get_queryset()
+        if query is not None:
+            or_lookup = (Q(title__icontains=query) | 
+                         Q(text__icontains=query)
+                        )
+            qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
+        return qs
+
+# Comment 모델 검색
+class CommentManager(models.Manager):
+    def search(self, query=None):
+        qs = self.get_queryset()
+        if query is not None:
+            or_lookup = (Q(text__icontains=query))
+            qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
+        return qs
+
 
 class Book(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -15,6 +48,7 @@ class Book(models.Model):
     published_date = models.DateTimeField(
             blank=True, null=True)
     updated_date = models.DateTimeField(auto_now=True)
+    objects = BookManager() # 검색관련 추가 2018.08.19 
 
     def publish(self):
         self.published_date = timezone.now()
@@ -34,6 +68,8 @@ class Post(models.Model ): # cms 2018.08.17 models.Model -> summer_model.Attachm
     updated_date = models.DateTimeField(auto_now=True)
     published_date = models.DateTimeField(
             blank=True, null=True)
+    url = models.CharField(max_length=500, blank=True, null=True) # 이미지 URL 연결 필드 2018.08.19 
+    objects = PostManager() # 검색관련 추가 2018.08.19 
 
     def publish(self):
         self.published_date = timezone.now()
@@ -56,6 +92,8 @@ class Comment(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     updated_date = models.DateTimeField(auto_now=True)
     approved_comment = models.BooleanField(default=False)
+    objects = CommentManager() # 검색관련 추가 2018.08.19 
+
     # 정렬순서를 최근순으로..
     class Meta:
         ordering =['-id']
@@ -66,3 +104,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+

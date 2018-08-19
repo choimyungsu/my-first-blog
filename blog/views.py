@@ -7,6 +7,9 @@ from django.utils import timezone
 from .models import Post, Comment, Book # 모델 임포트
 from .forms import PostForm, CommentForm, BookForm # form 임포트 추가
 from django.contrib.auth.decorators import login_required
+# 검색을 위한 추가 2018.08.18 search.views.py
+from itertools import chain 
+from django.views.generic import ListView
 
 
 def book_list(request): # 책리스트 가져오기
@@ -27,7 +30,18 @@ def book_list(request): # 책리스트 가져오기
 @login_required
 def my_book_list(request): # 내 책리스트 가져오기 2018.08.18
     books = Book.objects.filter(author= request.user).order_by('created_date')
-    return render(request, 'blog/book_list.html', {'books': books})
+    # 페이징 처리 추가 2018.08.19
+    paginator = Paginator(books, 8) # Show 9 contacts per page
+    page = request.GET.get('page')
+    try:
+        #books = paginator.get_page(page)
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages) 
+
+    return render(request, 'blog/book_list.html', {'books': queryset})
 
 
 @login_required
@@ -182,8 +196,42 @@ def comment_remove(request, pk):
     comment.delete()
     return redirect('post_view', pk=comment.post.pk)    
 
+# def search(request):# 검색 페이지로 이동
+#     return render(request, 'blog/view.html')  
 
+# 검색 추가
+class SearchView(ListView):
+    template_name = 'blog/view.html'
+    paginate_by = 20
+    count = 0
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['count'] = self.count or 0
+        context['query'] = self.request.GET.get('q')
+        return context
+
+    def get_queryset(self):
+        request = self.request
+        query = request.GET.get('q', None)
+
+        if query is not None:
+            book_results      = Book.objects.search(query)
+            post_results      = Post.objects.search(query)
+            comment_results   = Comment.objects.search(query)
+
+            # combine querysets 
+            queryset_chain = chain(
+                    book_results,
+                    post_results,
+                    comment_results,
+            )        
+            qs = sorted(queryset_chain, 
+                        key=lambda instance: instance.pk, 
+                        reverse=True)
+            self.count = len(qs) # since qs is actually a list
+            return qs
+        return Post.objects.none() # just an empty queryset as default
 
 
      

@@ -2,6 +2,7 @@ from django.conf.urls import url, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from blog.views import SearchView # 통합 검색 추가 2018.08.19
 
 
 urlpatterns = [
@@ -15,6 +16,8 @@ urlpatterns = [
     url(r'^book/(?P<pk>\d+)/remove/$', views.book_remove, name='book_remove'),
     url(r'^book/(?P<pk>\d+)/post/$', views.add_post_to_book, name='add_post_to_book'), # book에 포스트 생성
     url(r'^book/drafts/$', views.book_draft_list, name='book_draft_list'), # 발행되지 않은 책 리스트
+
+    url(r'^search/$', SearchView.as_view(), name='search' ), # 통합 검색 추가 2018.08.19
 
     # url(r'^$', views.post_list, name='post_list'), # 일단 주석처리 book list에서 book을 클릭시 Post list로 연결
     url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
