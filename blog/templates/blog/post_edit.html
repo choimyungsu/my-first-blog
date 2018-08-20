@@ -2,34 +2,38 @@
 
 {% block content %}
 <div class="container">
-        <div class="content row">
-            <div class="col-sm-3" id="leftmenuinner">
-                <h3 style="text-align: center;margin-top:0;">Contents</h5>
-                <div class="row">
-                    <div style="padding-left:20px; ">                    
-                        {% for post2 in book.posts.all %}
-                            {% if user.is_authenticated or book.approved_post %}
-                            <div class="row" {% if post2.pk == post.pk %} style="border: block; " {% endif %}>
-                                <div class="sidebar">
-                                    <a href="{% url 'post_view' pk=post2.pk %}">{{ post2.title}}</a>   
-                                </div>
+    <div class="content row" style="margin-top:0;">
+        <div class="col-sm-3" id="leftmenuinner" style="overflow-y:auto; border-right:1px solid #BDBDBD">
+            <h3 style="text-align:left; margin-top:0;display: inline-block;">
+                    <a href="{% url 'book_detail' pk=book.pk %}">Contents</a>
+            </h3>
+            <a class="js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
+            <div class="row">
+                <div style="padding-left:20px; ">                    
+                    {% for post2 in book.posts.all %}
+                        {% if user.is_authenticated or post2.published_date %}
+                        <div class="row" {% if post2.pk == post.pk %} style="background-color:#E0ECF8;" {% endif %}>
+                            <div class="sidebar">
+                                <a href="{% url 'post_view' pk=post2.pk %}">{{ post2.title}}</a>   
                             </div>
-                            {% endif %}
-                            {% empty %}
-                            <p>No Contents here yet </p>
-                        {% endfor %}    
-                    </div>
+                        </div>
+                        {% endif %}
+                        {% empty %}
+                        <p>No Contents here yet </p>
+                    {% endfor %}
+                    {% if user.is_authenticated and book.author == user %}<h3 style="text-align: center;margin-top:0;"><a class="btn btn-default " href="{% url 'add_post_to_book' pk=book.pk %}" >Add Contents</a></h3>{% endif %}
                 </div>
             </div>
-            <div class="col-sm-9" style="margin-top: 0px;">
-                <form method="POST" class="post-form" >{% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="save btn btn-default">Save</button>
-                </form> 
-            </div>
+        </div>
+        <div class="col-sm-9" style="margin-top: 0px; border-left:1px solid #BDBDBD; margin-left:-1px">
+            <form method="POST" class="post-form" >{% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default">Save</button>
+            </form> 
         </div>
     </div>
 </div>
+
 <Script>
         $(document).ready(function() {
             $('#summernote').summernote();

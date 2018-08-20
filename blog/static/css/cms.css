@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;/* 모든 박스 사이즈는 보더를 포함한다.*/
+}
+
 #footer {
     /*position:fixed;*/
     left:0px;

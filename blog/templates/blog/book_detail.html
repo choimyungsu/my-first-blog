@@ -20,7 +20,7 @@
             {% endfor %}
             {% if user.is_authenticated and book.author == user %}<a class="btn btn-default" href="{% url 'add_post_to_book' pk=book.pk %}">Add Contents</a>{% endif %}
             </div>
-            <div class="page  col-sm-9" id="load_content" >
+            <div class="page  col-sm-9 " style="border-left:1px solid #BDBDBD; margin-left:-1px" id="load_content" >
             {# 특정 컨텐츠만 나옴/ if post 값이 없으면 책 내용이 나오기 #}
                 <a class="pull-left js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>
                 <div class="post">
