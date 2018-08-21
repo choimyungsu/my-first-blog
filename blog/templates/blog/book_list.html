@@ -18,7 +18,7 @@
                     <figcaption>
                         <h4>{{ book.title }}</h4> <!--책제목-->
                         <!--책 발행일-->
-                        <p>{{ book.text|linebreaksbr }}<br>{{ book.published_date }}<br>저자:{{ book.author }}</p>	<!--책 설명-->			
+                        <p>{{ book.text|safe }}<br>{{ book.published_date }}<br>저자:{{ book.author }}</p>	<!--책 설명-->			
                     </figcaption>			
                 </figure>
             </div>
