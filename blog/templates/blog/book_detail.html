@@ -1,24 +1,31 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-
-    <div class="container">
-        <div class="content row" style="margin-top:0;">
-            <div class="col-sm-3" id="leftmenuinner" style="overflow-y:auto; border-right:1px solid #BDBDBD">
-            <h3 style="text-align:left; margin-top:0;display: inline-block;">Contents</h3>
-            <a class="pull-light js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>                
-            {% for post in book.posts.all %}
-                {% if post.published_date or user.is_authenticated %} 
-                <div class="row">
-                    <div class="sidebar" >
-                        <a href="{% url 'post_view' pk=post.pk %}">{{ post.title}}</a>   
+<div class="container">
+    <div class="content row" style="margin-top:0;">
+        <div class="col-sm-3" id="leftmenuinner" style="overflow-y:auto; border-right:1px solid #BDBDBD">
+        <h3 style="text-align:left; margin-top:0;display: inline-block;">
+            <a href="{% url 'book_detail' pk=book.pk %}">Contents</a>
+        </h3>
+        <a class="js-toolbar-action" aria-label="" onclick="showandhide()" title="메뉴"><i class="fa fa-align-justify"></i></a>                 
+            <div class="row">
+                <div style="padding-left:20px;padding-right:20px; "> 
+                {% for post in book.posts.all %}
+                    {% if post.published_date or user.is_authenticated %}
+                    <div class="row">
+                        <div class="sidebar" >
+                            <a href="{% url 'post_view' pk=post.pk %}">{{ post.title}}</a>   
+                        </div>
                     </div>
+                    {% endif %}
+                    {% empty %}
+                    <p>No Contents here yet </p>
+                {% endfor %}
                 </div>
-                {% endif %}
-                {% empty %}
-                <p>No Contents here yet </p>
-            {% endfor %}
-            {% if user.is_authenticated and book.author == user %}<a class="btn btn-default" href="{% url 'add_post_to_book' pk=book.pk %}">Add Contents</a>{% endif %}
+            </div>
+                
+            
+            {% if user.is_authenticated and book.author == user %}<h3 style="text-align: center;margin-top:0;"><a class="btn btn-default " href="{% url 'add_post_to_book' pk=book.pk %}" >Add Contents</a></h3>{% endif %}
             </div>
             <div class="page  col-sm-9 " style="border-left:1px solid #BDBDBD; margin-left:-1px" id="load_content" >
             {# 특정 컨텐츠만 나옴/ if post 값이 없으면 책 내용이 나오기 #}
