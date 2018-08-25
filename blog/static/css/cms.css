@@ -2,6 +2,27 @@
     box-sizing: border-box;/* 모든 박스 사이즈는 보더를 포함한다.*/
 }
 
+ /*===========================
+  페이지 이동 아이콘
+============================ */
+.prev_icon {
+    position: fixed;
+    top:50%;
+    left: 10%; 
+}
+
+.next_icon {
+    position: fixed;
+    top:50%;
+    right: 10%;
+}
+
+.prev_icon:link, .next_icon:link { color:#ccc; }
+.prev_icon:visited, .next_icon:visited { color: #ccc; }
+.prev_icon:hover, .next_icon:hover { color:#aaa !important; }
+.prev_icon:active, next_icon:active { color: #aaa; }
+
+
 #footer {
     /*position:fixed;*/
     left:0px;
@@ -17,6 +38,30 @@
     font-size: 12px;
  }
 
+/*---------------*/
+/***** leftmenu *****/
+/*cms add 2018.08*/
+/*---------------*/
+#leftmenuinner {
+	height:85%;
+	/*width:100%;*/
+	overflow-y:auto !important;
+	overflow-x:hidden;
+	/*padding-top:20px;*/
+  }
+
+/*미디어쿼리 적용 
+모바일에 적용될 스타일을 먼저 작성합니다. */
+@media (max-width: 650px) {/*650이하일때 안보이게..*/
+		#leftmenuinner{
+			display : none;
+		}
+ }
+ @media (min-width: 651px) {/*651이상일때 보이게..*/
+	#leftmenuinner{
+		display : block;
+	}
+}
 
  /*===========================
   gallery

@@ -40,9 +40,9 @@
             {% endif %}
             <hr>
             <div class="row" style="padding-left: 10px;">
-                    {% if post.url %} <div>{{ post.url | safe }}</div> {% endif%}
+                {% if post.url %} <div>{{ post.url | safe }}</div> {% endif%}
                 {{ post.text|safe }}
-                <p class="date pull-right">마지막 편집일 : {{post.updated_date}}</p>
+                <p class="date pull-right">마지막 편집일 : {{post.updated_date}} / {{prev_post.pk }} /{{next_post.pk }}</p>
             </div>
             <hr>
             <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
@@ -62,10 +62,10 @@
             {% endfor %} 
 
             <div style="" class="prev_next_indicator"><!-- 앞뒤 이동-->
-                    <a class="prev_icon" href="#" role="button" >
-                        <span class="glyphicon glyphicon-chevron-left" style="font-size:2em;"></span>
+                    <a class="prev_icon" href="{% url 'post_view' pk=prev_post.pk %}" role="button" >
+                       <span class="glyphicon glyphicon-chevron-left" style="font-size:2em;"></span>
                     </a>       
-                    <a class="next_icon" href="#" role="button" >
+                    <a class="next_icon" href="{% url 'post_view' pk=next_post.pk %}" role="button" >
                         <span class="glyphicon glyphicon-chevron-right" style="font-size:2em;"></span>
                     </a>                
             </div>

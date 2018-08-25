@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^search/$', SearchView.as_view(), name='search' ), # 통합 검색 추가 2018.08.19
 
     # url(r'^$', views.post_list, name='post_list'), # 일단 주석처리 book list에서 book을 클릭시 Post list로 연결
-    url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
+    # url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
     url(r'^post/new/$', views.post_new, name='post_new'),
     url(r'^post/(?P<pk>\d+)/edit/$', views.post_edit, name='post_edit'),
     url(r'^drafts/$', views.post_draft_list, name='post_draft_list'),

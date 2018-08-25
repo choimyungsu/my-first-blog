@@ -108,20 +108,56 @@ def add_post_to_book(request, pk):
 def post_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
     book = Book.objects.get(id=post.book_id)
-    #book = get_object_or_404(Book, pk=post.book.id) # ??
-    return render(request, 'blog/post_detail.html', {'post': post,'book':book}) #
+    posts = book.posts.all()
 
+    next_post = get_next_or_prev(posts, post, 'next')
+    prev_post = get_next_or_prev(posts, post, 'prev')
+    # aaa =book.posts.all #"cms 좀 나와라"
+    # order = aaa.count()
+    # #order =  # 북안에 Post가 몇번째 있는지 확인 
+    # #book = get_object_or_404(Book, pk=post.book.id) # ??
+    return render(request, 'blog/post_detail.html', {'post': post,'book':book,'next_post':next_post,'prev_post':prev_post}) #
 
+# 앞뒤 객체 가져오기 https://gist.github.com/kvnn/2303613
+''' Function '''
+def get_next_or_prev(models, item, direction):
+    '''
+    Returns the next or previous item of
+    a query-set for 'item'.
 
+    'models' is a query-set containing all
+    items of which 'item' is a part of.
+
+    direction is 'next' or 'prev'
+    
+    맨처음/맨 마지막은 순환된다.(놔둬도 될까?)
+
+    '''
+    getit = False
+    if direction == 'prev':
+        models = models.reverse()
+    for m in models:
+        if getit:
+            return m
+        if item == m:
+            getit = True
+    if getit:
+        # This would happen when the last
+        # item made getit True
+        return models[0]
+    return False 
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    book = Book.objects.get(id=post.book_id)
-    return render(request, 'blog/post_detail.html', {'post': post,'book':book})
+# def post_detail(request, pk):
+#     post = get_object_or_404(Post, pk=pk)
+#     book = Book.objects.get(id=post.book_id)
+#     aaa = "adfasdfasdfasdfdasdf"
+#     # order = book.index(post)# 북안에 Post가 몇번째 있는지 확인 
+
+#     return render(request, 'blog/post_detail.html', {'post': post,'book':book,'aaa':aaa})
 
 @login_required
 def post_new(request):

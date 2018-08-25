@@ -765,17 +765,6 @@ ul.social_icons li  a i{
 	pointer-events: none;
 }
 
-/*---------------*/
-/***** leftmenu *****/
-/*cms add 2018.08*/
-/*---------------*/
-#leftmenuinner {
-  height:85%;
-  /*width:100%;*/
-  overflow-y:auto !important;
-  overflow-x:hidden;
-  /*padding-top:20px;*/
-}
 
 /*---------------*/
 /***** Marley *****/
