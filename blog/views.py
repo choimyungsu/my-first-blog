@@ -108,7 +108,7 @@ def add_post_to_book(request, pk):
 def post_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
     book = Book.objects.get(id=post.book_id)
-    posts = book.posts.all()
+    posts = book.posts.all() # filter 걸어야 함..로그인사용자, 또는 퍼블리쉬되지 않은 글 
 
     next_post = get_next_or_prev(posts, post, 'next')
     prev_post = get_next_or_prev(posts, post, 'prev')
@@ -196,7 +196,7 @@ def post_draft_list(request):
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
-    return redirect('post_detail', pk=pk)   
+    return redirect('post_view', pk=pk)   
 @login_required
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
