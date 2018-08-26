@@ -10,7 +10,7 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ('title', 'text', 'photo','book_url')
+        fields = ('title', 'text', 'photo','url')
         #fields ='__all__' # 모든 필드를 보여줄때 
         widgets = {
 			'title' : forms.TextInput(attrs={'class': 'form-control','width':'50','placeholder': '목차 제목을 입력해주세요.'}),
@@ -23,7 +23,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'post_url','text') # 이 순서대로 form이 구성된다.
+        fields = ('title', 'url','text') # 이 순서대로 form이 구성된다.
         widgets = {
 			'title' : forms.TextInput(attrs={'class': 'form-control','width':'100','placeholder': '목차 제목을 입력해주세요.'}),
             'url' : forms.TextInput(attrs={'class': 'form-control','width':'100','placeholder': '대표 이미지 URL을 입력해주세요.','alt':'class="img-responsive"'}),
