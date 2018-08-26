@@ -40,7 +40,7 @@
             {% endif %}
             <hr>
             <div class="row" style="padding-left: 10px;">
-                {% if post.url %} <div>{{ post.url | safe }}</div> {% endif%}
+                {% if post.post_url %} <div>{{ post.post_url | safe }}</div> {% endif%}
                 {{ post.text|safe }}
                 <p class="date pull-right">마지막 편집일 : {{post.updated_date}} / {{prev_post.pk}} / {{next_post.pk}} </p>
             </div>
