@@ -14,7 +14,7 @@ class BookForm(forms.ModelForm):
         #fields ='__all__' # 모든 필드를 보여줄때 
         widgets = {
 			'title' : forms.TextInput(attrs={'class': 'form-control','width':'50','placeholder': '목차 제목을 입력해주세요.'}),
-            'book_url' : forms.TextInput(attrs={'class': 'form-control','width':'50','placeholder': '대표 이미지 URL을 입력해주세요.','alt':'class="img-responsive"'}),
+            'url' : forms.TextInput(attrs={'class': 'form-control','width':'50','placeholder': '대표 이미지 URL을 입력해주세요.','alt':'class="img-responsive"'}),
             'text' : forms.Textarea(attrs={'class': 'form-control', 'rows':15}),
             #'text': SummernoteWidget,
 		}
@@ -26,7 +26,7 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'post_url','text') # 이 순서대로 form이 구성된다.
         widgets = {
 			'title' : forms.TextInput(attrs={'class': 'form-control','width':'100','placeholder': '목차 제목을 입력해주세요.'}),
-            'post_url' : forms.TextInput(attrs={'class': 'form-control','width':'100','placeholder': '대표 이미지 URL을 입력해주세요.','alt':'class="img-responsive"'}),
+            'url' : forms.TextInput(attrs={'class': 'form-control','width':'100','placeholder': '대표 이미지 URL을 입력해주세요.','alt':'class="img-responsive"'}),
             #'text' : forms.Textarea(attrs={'class': 'form-control', 'rows':15}),
             'text': SummernoteWidget,
 		}
